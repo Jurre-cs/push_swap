@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 	if (count == -1)
 		return (0);
 	convert(argv, &astack);
-	astack = push_swap(&astack);
+	push_swap(&astack);
 	free_stack(&astack);
 	return (0);
 }

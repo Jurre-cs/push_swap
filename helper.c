@@ -23,12 +23,12 @@ t_stack	*ft_lstlast(t_stack *lst)
 	return (lst);
 }
 
-void	ft_lstadd_back(t_stack **lst, t_stack *new)
+void	ft_lstadd_back(t_stack **lst, t_stack *node)
 {
 	if (*lst == NULL)
-		*lst = new;
+		*lst = node;
 	else
-		ft_lstadd_back(&(*lst)->next, new);
+		ft_lstadd_back(&(*lst)->next, node);
 }
 
 t_stack	*second_to_last(t_stack *lst)

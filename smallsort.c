@@ -70,26 +70,3 @@ void	sort3(t_stack **head)
 	else if (a < b && b > c && a > c)
 		reverse_rotate(head, "rra\n");
 }
-
-void	turk_move_small(t_stack **from, t_stack **to, char c)
-{
-	int expense;
-	int nodes;
-
-	nodes = nodecount(from);
-	while (nodes != 0)
-	{
-		cost_search(from, to);
-		if (*from == NULL || *to == NULL ||
-			(*from)->cheapest == NULL || (*to)->cheapest == NULL)
-			break;
-		expense = (*from)->cheapest->cost + (*to)->cheapest->cost;
-		if ((*from)->cheapest && (*to)->cheapest &&
-		(*from)->cheapest == (*to)->cheapest)
-			double_ops(from, to);
-		else
-			ops(from, to, 0);
-		push(from, to, c);
-		nodes--;
-	}
-}

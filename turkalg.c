@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <limits.h>
+
+void	min_check(t_stack **stack, t_stack *buffer_to);
 
 void turkalg(t_stack **astack)
 {
@@ -18,12 +21,12 @@ void turkalg(t_stack **astack)
 
 	bstack = NULL;
 	if (nodecount(astack) > 4)
-		bpush(astack, bstack);
-	bpush(astack, bstack);
-	move(astack, bstack, 'b', 3);
-	min_check(astack, 'c', INT_MAX);
+		bpush(astack, &bstack);
+	bpush(astack, &bstack);
+	move(astack, &bstack, 'b', 3);
+	min_check(astack, bstack);
 	sort3(astack);
-	move(bstack, astack, 'a', 0);
+	move(&bstack, astack, 'a', 0);
 }
 
 void	move(t_stack **from, t_stack **to, char c, int leftover)
@@ -45,23 +48,26 @@ void	move(t_stack **from, t_stack **to, char c, int leftover)
 		find_cheapest(from, to, buffer_from, buffer_to);
 		buffer_from = (*from)->cheapest;
 		buffer_to = (*to)->cheapest;
-		if ((buffer_from->index < len && buffer_from->index < len) ||
-		(buffer_from->index > len && buffer_from->index > len))
+		if ((buffer_from->index < len && buffer_to->index < nodecount(to) / 2) 
+		|| (buffer_from->index >= len && buffer_to->index >= nodecount(to) / 2))
 			double_ops(from, to);
 		else
 			ops(from, to, 0);
+		push(from, to, c);
+		len = nodecount(from);
 	}
-	push(from, to, c);
 }
 
 void	find_cheapest(t_stack **from, t_stack **to, 
 	t_stack *buffer_from, t_stack *buffer_to)
 {
 	int cheap;
+	t_stack *original_to;
 	
 	cheap = INT_MAX;
 	while (buffer_from != NULL)
 	{
+		original_to = buffer_to;
 		while (buffer_to != NULL)
 		{
 			if (buffer_to->num < buffer_from->num)
@@ -76,40 +82,46 @@ void	find_cheapest(t_stack **from, t_stack **to,
 			}
 			buffer_to = buffer_to->next;
 		}
-		if (buffer_to = NULL)
-			min_check(to, 'c', INT_MAX);
+		min_check(to, buffer_to);
 		buffer_from = buffer_from->next;
+		buffer_to = original_to;
 	}
 }
 
 int	cost_calc(t_stack *stack)
 {
-	unsigned int	cost;
-	int 			stacklen;
+	int	cost;
+	int stacklen;
 	
-	stacklen = nodecount(stack);
+	stacklen = nodecount(&stack);
 	cost = 0;
 	if (stack->index > (stacklen / 2))
-		cost = stack->index - stacklen;
+		cost = stacklen - stack->index;
 	else
 		cost = stack->index;
 	stack->cost = cost;
 	return (cost);
 }
 
-void	min_check(t_stack **stack, char c, int min)
+void	min_check(t_stack **stack, t_stack *buffer_to)
 {
 	t_stack	*buffer;
+	int		min;
 
+	min = INT_MAX;
 	buffer = *stack;
-	while (buffer != NULL)
+	if (buffer_to == NULL)
 	{
-		if (buffer->num < min)
+		while (buffer != NULL)
 		{
-			min = buffer->min;
-			(*stack)->min = buffer;
+			if (buffer->num < min)
+			{
+				min = buffer->num;
+				(*stack)->min = buffer;
+			}
+			buffer = buffer->next;
 		}
-		buffer = buffer->next;
 	}
-	
+	else
+		return ;
 }

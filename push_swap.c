@@ -14,19 +14,15 @@
 
 t_stack	**push_swap(t_stack **astack)
 {
-	int count;
-
-	count = 0;
 	*astack = NULL;
-	if (!sorted(astack))
-	{
-		if (nodecount(astack) == 3)
-			sort_3(&astack);
-		if (nodecount(astack) == 2)
-			swap(&astack, "sa\n");
-		else
-			turkalg(astack);
-	}
+	if (sorted(astack))
+		return (astack);
+	if (nodecount(astack) == 3)
+		sort3(astack);
+	else if (nodecount(astack) == 2)
+		swap(astack, "sa\n");
+	else if (nodecount(astack) > 3)
+		turkalg(astack);
 	else
 		return (free_stack(astack), write(1, "pizza\n", 6), NULL);
 	return (astack);
@@ -37,21 +33,23 @@ int	check(char **argv)
 	int i;
 	int j;
 	
-	i = 0;
+	i = 1;
 	j = 0;
 	while (argv[i])
 	{
 		j = 0;
 		while (argv[i][j])
 		{
-			if (argv[i][j] != ' ' && (argv[i][j] < '0' || 
-				argv[i][j] > '9') && argv[i][j] != '-')
-				return(-1);
+			if (argv[i][j] != ' ' && (argv[i][j] < '0' || argv[i][j] > '9')
+			 && argv[i][j] != '-' && argv[i][j + 1] != '-')
+				return (-1);
+			if (argv[i][j + 1] == '-' && argv[i][j] == '-')
+				return (-1);
 			j++;
 		}
 		i++;
 	}
-	return(i + 1);
+	return (i);
 }
 
 int	convert(char **argv,t_stack **astack)
@@ -67,6 +65,10 @@ int	convert(char **argv,t_stack **astack)
 			return (-1);
 		anode->num = ft_atoi(argv[count]);
 		anode->next = NULL;
+		anode->index = 0;
+		anode->cost = 0;
+		anode->cheapest = NULL;
+		anode->min = NULL;
 		ft_lstadd_back(astack, anode);
 		count++;
 	}
@@ -80,6 +82,8 @@ void	free_stack(t_stack **stack)
 	t_stack *current;
 	t_stack *next;
 
+	if (!stack || !*stack)
+		return;
 	current = *stack;
 	while (current)
 	{

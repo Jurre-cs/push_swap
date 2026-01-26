@@ -34,7 +34,7 @@ t_stack	**push_swap(t_stack **astack);
 void	turkalg(t_stack **astack);
 t_stack	*ft_lstlast(t_stack *lst);
 t_stack	*second_to_last(t_stack *lst);
-void	ft_lstadd_back(t_stack **lst, t_stack *new);
+void	ft_lstadd_back(t_stack **lst, t_stack *node);
 void	bpush(t_stack **ahead, t_stack **bhead);
 void	apush(t_stack **ahead, t_stack **bhead);
 void	reverse_rotate(t_stack **head, char *op);
@@ -52,11 +52,9 @@ int		sorted(t_stack **head);
 void	push(t_stack **ahead, t_stack **bhead, char c);
 void	smallsort(t_stack **head);
 void	free_stack(t_stack **stack);
-void	turk_move_small(t_stack **from, t_stack **to, char c);
 int		cost_calc(t_stack *stack);
 void	find_cheapest(t_stack **from, t_stack **to, 
 	t_stack *buffer_from, t_stack *buffer_to);
 void	move(t_stack **from, t_stack **to, char c, int leftover);
-
 
 #endif

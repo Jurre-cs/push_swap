@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 // char upper_even(unsigned int i, char c)
