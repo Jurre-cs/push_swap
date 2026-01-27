@@ -1,37 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   turkalg.c                                          :+:    :+:            */
+/*   turkalg_continue.c                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jstomps <jstomps@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2026/01/26 13:08:57 by jstomps       #+#    #+#                 */
-/*   Updated: 2026/01/27 23:00:09 by jstomps       ########   odam.nl         */
+/*   Created: 2026/01/27 20:10:21 by jstomps       #+#    #+#                 */
+/*   Updated: 2026/01/27 23:01:56 by jstomps       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <limits.h>
 
-void turkalg(t_stack **astack)
-{
-	t_stack *bstack;
-	t_stack *buffer_from;
-	t_stack	*buffer_to;
-
-	bstack = NULL;
-	buffer_from = *astack;
-	buffer_to = bstack;
-	if (nodecount(astack) > 4)
-		bpush(astack, &bstack);
-	bpush(astack, &bstack);
-	moveb(astack, &bstack, buffer_from, buffer_to);
-	min_check(astack, bstack);
-	sort3(astack);
-	movea(&bstack, astack, buffer_from, buffer_to);
-}
-
-void	moveb(t_stack **from, t_stack **to, 
+void	movea(t_stack **from, t_stack **to, 
 	t_stack *buffer_from, t_stack *buffer_to)
 {
 	int		len;
@@ -46,7 +27,7 @@ void	moveb(t_stack **from, t_stack **to,
 		buffer_from = *from;
 		buffer_to = *to;
 		max_check(to, buffer_to);
-		find_cheapestb(from, to, buffer_from, (*to)->max);
+		find_cheapesta(from, to, buffer_from, (*to)->max);
 		buffer_from = (*from)->cheapest;
 		buffer_to = (*to)->cheapest;
 		if ((buffer_from->index < len && buffer_to->index < nodecount(to) / 2) 
@@ -54,12 +35,29 @@ void	moveb(t_stack **from, t_stack **to,
 			double_ops(from, to);
 		else
 			ops(from, to, 0);
-		bpush(from, to);
+		apush(from, to);
 		len = nodecount(from);
 	}
 }
 
-void	find_cheapestb(t_stack **from, t_stack **to, 
+int	find_2(t_stack **from, t_stack **to, 
+	t_stack *buffer_from, t_stack *buffer_to, int cheap)
+{
+	int from_cost;
+	int to_cost;
+	
+	from_cost = cost_calc(buffer_from);
+	to_cost = cost_calc(buffer_to);
+	if (from_cost + to_cost < cheap)
+	{
+		cheap = from_cost + to_cost;
+		(*from)->cheapest = buffer_from;
+		(*to)->cheapest = buffer_to;
+	}
+	return (cheap);
+}
+
+void	find_cheapesta(t_stack **from, t_stack **to, 
 	t_stack *buffer_from, t_stack *buffer_to)
 {
 	int cheap;
@@ -71,7 +69,7 @@ void	find_cheapestb(t_stack **from, t_stack **to,
 		original_to = buffer_to;
 		while (buffer_to != NULL)
 		{
-			if (buffer_to->num < buffer_from->num)
+			if (buffer_to->num > buffer_from->num)
 			{
 				cheap = find_2(from, to, buffer_from, buffer_to, cheap);
 				break;
@@ -82,19 +80,4 @@ void	find_cheapestb(t_stack **from, t_stack **to,
 		buffer_from = buffer_from->next;
 		buffer_to = original_to;
 	}
-}
-
-int	cost_calc(t_stack *stack)
-{
-	int	cost;
-	int stacklen;
-	
-	stacklen = nodecount(&stack);
-	cost = 0;
-	if (stack->index > (stacklen / 2))
-		cost = stacklen - stack->index;
-	else
-		cost = stack->index;
-	stack->cost = cost;
-	return (cost);
 }

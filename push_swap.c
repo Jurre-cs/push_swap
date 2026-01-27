@@ -6,7 +6,7 @@
 /*   By: jstomps <jstomps@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/12/10 17:10:31 by jstomps       #+#    #+#                 */
-/*   Updated: 2026/01/23 21:40:16 by jstomps       ########   odam.nl         */
+/*   Updated: 2026/01/27 22:17:42 by jstomps       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 t_stack	**push_swap(t_stack **astack)
 {
-	*astack = NULL;
 	if (sorted(astack))
 		return (astack);
 	if (nodecount(astack) == 3)
@@ -41,7 +40,7 @@ int	check(char **argv)
 		while (argv[i][j])
 		{
 			if (argv[i][j] != ' ' && (argv[i][j] < '0' || argv[i][j] > '9')
-			 && argv[i][j] != '-' && argv[i][j + 1] != '-')
+			&& argv[i][j] != '-' && argv[i][j + 1] != '-')
 				return (-1);
 			if (argv[i][j + 1] == '-' && argv[i][j] == '-')
 				return (-1);
@@ -69,6 +68,7 @@ int	convert(char **argv,t_stack **astack)
 		anode->cost = 0;
 		anode->cheapest = NULL;
 		anode->min = NULL;
+		anode->max = NULL;
 		ft_lstadd_back(astack, anode);
 		count++;
 	}

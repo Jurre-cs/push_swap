@@ -6,7 +6,7 @@
 /*   By: jstomps <jstomps@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2026/01/15 15:21:28 by jstomps       #+#    #+#                 */
-/*   Updated: 2026/01/23 17:39:27 by jstomps       ########   odam.nl         */
+/*   Updated: 2026/01/27 23:07:12 by jstomps       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ops(t_stack **from, t_stack **to, int i)
 
 	j = i;
 	mediaan = nodecount(from);
-	while(i != (*from)->cheapest->cost)
+	while((*from)->cheapest && i < (*from)->cheapest->cost)
 	{
 		if ((*from)->index < mediaan)
 			rotate(from, "ra\n");
@@ -54,7 +54,7 @@ void	ops(t_stack **from, t_stack **to, int i)
 	if ((*to)->cheapest == (*to)->min)
 		return;
 	mediaan = nodecount(to);
-	while (j != (*to)->cheapest->cost)
+	while ((*to)->cheapest && j < (*to)->cheapest->cost)
 	{
 		if ((*to)->index < mediaan)
 			rotate(to, "rb\n");
@@ -85,4 +85,50 @@ void	double_ops(t_stack **from, t_stack **to)
 		}
 	}
 	ops(from, to, i);
+}
+
+void	min_check(t_stack **to, t_stack *buffer_to)
+{
+	t_stack	*buffer;
+	int		min;
+
+	min = INT_MAX;
+	buffer = *to;
+	if (buffer_to != NULL)
+	{
+		while (buffer != NULL)
+		{
+			if (buffer->num < min)
+			{
+				min = buffer->num;
+				(*to)->min = buffer;
+			}
+			buffer = buffer->next;
+		}
+	}
+	else
+		return ;
+}
+
+void	max_check(t_stack **to, t_stack *buffer_to)
+{
+	t_stack	*buffer;
+	int max;
+	
+	buffer = *to;
+	max = INT_MIN;
+	if (buffer_to != NULL)
+	{
+		while (buffer != NULL)
+		{
+			if (buffer->num > max)
+			{
+				max = buffer->num;
+				(*to)->max = buffer;
+			}
+			buffer = buffer->next;
+		}
+	}
+	else
+		return ;
 }
