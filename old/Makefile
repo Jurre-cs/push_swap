@@ -1,6 +1,6 @@
 NAME = push_swap
 
-SRC = main.c helper.c double_operations.c push_swap.c single_operations.c smallsort.c turkalg.c
+SRC = main.c helper.c turkhelper.c double_operations.c push_swap.c single_operations.c smallsort.c turkalg.c turkalg_continue.c
 OBJ = $(SRC:%.c=%.o)
 
 CC = cc

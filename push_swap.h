@@ -6,7 +6,7 @@
 /*   By: jstomps <jstomps@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/12/10 17:03:26 by jstomps       #+#    #+#                 */
-/*   Updated: 2026/01/27 23:01:04 by jstomps       ########   odam.nl         */
+/*   Updated: 2026/01/31 01:51:53 by jstomps       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,54 +17,63 @@
 #include <limits.h>
 #include <stdio.h>
 #include "libft/libft.h"
+#include <stdbool.h>
 
 typedef struct s_stack
 {
-	int				num;
+	ssize_t			num;
 	int				index;
 	struct s_stack	*next;
+	struct s_stack	*tar;
 	int				cost;
-	struct s_stack	*cheapest;
 	struct s_stack	*min;
 	struct s_stack	*max;
 }					t_stack;
 
-int		convert(char **argv, t_stack **astack);
-int		check(char **argv);
+/* push_swap.c */
 t_stack	**push_swap(t_stack **astack);
-void	turkalg(t_stack **astack);
-t_stack	*ft_lstlast(t_stack *lst);
-t_stack	*second_to_last(t_stack *lst);
-void	ft_lstadd_back(t_stack **lst, t_stack *node);
-void	bpush(t_stack **ahead, t_stack **bhead);
-void	apush(t_stack **ahead, t_stack **bhead);
-void	reverse_rotate(t_stack **head, char *op);
-void	rotate(t_stack **head, char *op);
-void	swap(t_stack **head, char *op);
-int		ft_atoi(const char *nptr);
-void	sort3(t_stack **head);
-void	double_reverse_rotate(t_stack **ahead, t_stack **bhead);
-void	double_rotate(t_stack **ahead, t_stack **bhead);
-void	make_index(t_stack **stack);
-int		nodecount(t_stack **stack);
-void	ops(t_stack **from, t_stack **to, int i);
-void	double_ops(t_stack **from, t_stack **to);
-int		sorted(t_stack **head);
-void	push(t_stack **ahead, t_stack **bhead, char c);
-void	smallsort(t_stack **head);
+int		check(char **argv);
+int		convert(char **argv, t_stack **astack);
 void	free_stack(t_stack **stack);
-int		cost_calc(t_stack *stack);
-void	find_cheapestb(t_stack **from, t_stack **to, 
-	t_stack *buffer_from, t_stack *buffer_to);
-void	find_cheapesta(t_stack **from, t_stack **to, 
-	t_stack *buffer_from, t_stack *buffer_to);
-int		find_2(t_stack **from, t_stack **to, 
-	t_stack *buffer_from, t_stack *buffer_to, int cheap);
-void	moveb(t_stack **from, t_stack **to, 
-	t_stack *buffer_from, t_stack *buffer_to);
-void	movea(t_stack **from, t_stack **to, 
-	t_stack *buffer_from, t_stack *buffer_to);
-void	min_check(t_stack **stack, t_stack *buffer_to);
-void	max_check(t_stack **to, t_stack *buffer_to);
+void	make_index(t_stack **stack);
+
+/* helper.c */
+t_stack	*ft_lstlast(t_stack *lst);
+void	ft_lstadd_back(t_stack **lst, t_stack *node);
+t_stack	*second_to_last(t_stack *lst);
+ssize_t	ft_atoi(const char *nptr);
+int		nodecount(t_stack **stack);
+
+/* single_operations.c */
+void	ap(t_stack **ahead, t_stack **bhead);
+void	bp(t_stack **ahead, t_stack **bhead);
+void	rr(t_stack **head, char *op);
+void	r(t_stack **head, char *op);
+void	s(t_stack **head, char *op);
+
+/* double_operations.c */
+void	dr(t_stack **ahead, t_stack **bhead);
+void	drr(t_stack **ahead, t_stack **bhead);
+
+/* smallsort.c */
+int		sorted(t_stack **head);
+void	smallsort(t_stack **head);
+void	sort3(t_stack **head);
+
+/* turkalg.c */
+t_stack	**turkalg(t_stack **a_stack);
+void	move(t_stack **from, t_stack **to);
+t_stack	*find_cheapest(t_stack **from, t_stack **to, char c);
+void	cheapest_b(t_stack **from, t_stack **to, 
+    t_stack *buffer_from, t_stack *buffer_to, int price);
+int		cost(t_stack *stack);
+bool	min_check(t_stack *buffer_from, t_stack **to);
+t_stack	*max_check(t_stack **to);
+t_stack	*tar_costs(t_stack **stack);
+void	d_ops(t_stack **from, t_stack **to, t_stack *cheapest);
+void	ops(t_stack **to, t_stack *cheapest, int i, double mediaan);
+void	move_back(t_stack **from, t_stack **to);
+void	cheapest_a(t_stack **from, t_stack **to, 
+    t_stack *buffer_from, t_stack *buffer_to, int price);
 
 #endif

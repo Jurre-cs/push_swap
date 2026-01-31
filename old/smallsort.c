@@ -6,7 +6,7 @@
 /*   By: jstomps <jstomps@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2026/01/14 16:02:55 by jstomps       #+#    #+#                 */
-/*   Updated: 2026/01/31 01:47:12 by jstomps       ########   odam.nl         */
+/*   Updated: 2026/01/26 16:31:13 by jstomps       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	smallsort(t_stack **head)
 	if (sorted(head))
 		return ;
 	else if ((*head)->num > (*head)->next->num)
-		s(head, "sa\n");
+		swap(head, "sa\n");
 	else 
 		sort3(head);
 }
@@ -54,19 +54,19 @@ void	sort3(t_stack **head)
 	b = (*head)->next->num;
 	c = (*head)->next->next->num;
 	if (a > b && b < c && a < c)
-		s(head, "sa\n");
+		swap(head, "sa\n");
 	else if (a > b && b > c)
 	{
-		r(head, "ra\n");
-		s(head, "sa\n");
+		rotate(head, "ra\n");
+		swap(head, "sa\n");
 	}
 	else if (a > b && b < c && a > c)
-		r(head, "ra\n");
+		rotate(head, "ra\n");
 	else if (a < b && b > c && a < c)
 	{
-		s(head, "sa\n");
-		r(head, "ra\n");
+		swap(head, "sa\n");
+		rotate(head, "ra\n");
 	}
 	else if (a < b && b > c && a > c)
-		rr(head, "rra\n");
+		reverse_rotate(head, "rra\n");
 }

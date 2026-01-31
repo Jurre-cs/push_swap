@@ -6,13 +6,13 @@
 /*   By: jstomps <jstomps@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2026/01/14 15:59:33 by jstomps       #+#    #+#                 */
-/*   Updated: 2026/01/30 22:39:34 by jstomps       ########   odam.nl         */
+/*   Updated: 2026/01/22 14:08:58 by jstomps       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ap(t_stack **ahead, t_stack **bhead)
+void	apush(t_stack **ahead, t_stack **bhead)
 {
 	t_stack	*btop;
 
@@ -23,7 +23,7 @@ void	ap(t_stack **ahead, t_stack **bhead)
 	write(1, "pa\n", 3);
 }
 
-void	bp(t_stack **ahead, t_stack **bhead)
+void	bpush(t_stack **ahead, t_stack **bhead)
 {
 	t_stack	*atop;
 
@@ -34,7 +34,7 @@ void	bp(t_stack **ahead, t_stack **bhead)
 	write(1, "pb\n", 3);
 }
 
-void	rr(t_stack **head, char *op)
+void	reverse_rotate(t_stack **head, char *op)
 {
 	t_stack	*secondtolast;
 	t_stack *last;
@@ -47,7 +47,7 @@ void	rr(t_stack **head, char *op)
 	write(1, op, 4);
 }
 
-void	r(t_stack **head, char *op)
+void	rotate(t_stack **head, char *op)
 {
 	t_stack	*top;
 	t_stack	*bottom;
@@ -60,7 +60,7 @@ void	r(t_stack **head, char *op)
 	write(1, op, 3);
 }
 
-void	s(t_stack **head, char *op)
+void	swap(t_stack **head, char *op)
 {
 	t_stack *firstnode;
 	t_stack *secondnode;

@@ -6,7 +6,7 @@
 /*   By: jstomps <jstomps@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/12/10 17:10:31 by jstomps       #+#    #+#                 */
-/*   Updated: 2026/01/31 02:10:21 by jstomps       ########   odam.nl         */
+/*   Updated: 2026/01/30 17:03:46 by jstomps       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_stack	**push_swap(t_stack **astack)
 	if (nodecount(astack) == 3)
 		sort3(astack);
 	else if (nodecount(astack) == 2)
-		s(astack, "sa\n");
+		swap(astack, "sa\n");
 	else if (nodecount(astack) > 3)
 		turkalg(astack);
 	else
@@ -92,19 +92,4 @@ void	free_stack(t_stack **stack)
 		current = next;
 	}
 	*stack = NULL;
-}
-
-void	make_index(t_stack **stack)
-{
-	int		i;
-	t_stack *head;
-	
-	i = 0;
-	head = *stack;
-	while (head)
-	{
-		head->index = i;
-		head = head->next;
-		i++;
-	}
 }
