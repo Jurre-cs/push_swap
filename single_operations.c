@@ -6,7 +6,7 @@
 /*   By: jstomps <jstomps@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2026/01/14 15:59:33 by jstomps       #+#    #+#                 */
-/*   Updated: 2026/01/30 22:39:34 by jstomps       ########   odam.nl         */
+/*   Updated: 2026/02/04 20:13:50 by jstomps       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	ap(t_stack **ahead, t_stack **bhead)
 {
-	t_stack	*btop;
+	t_stack	*atop;
 
-	btop = *bhead;
-	*bhead = btop->next;
-	btop->next = *ahead;
-	*ahead = btop;
+	atop = *ahead;
+	*ahead = atop->next;
+	atop->next = *bhead;
+	*bhead = atop;
 	write(1, "pa\n", 3);
 }
 

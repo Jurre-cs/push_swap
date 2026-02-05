@@ -6,7 +6,7 @@
 /*   By: jstomps <jstomps@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2026/01/14 16:09:51 by jstomps       #+#    #+#                 */
-/*   Updated: 2026/01/30 14:54:43 by jstomps       ########   odam.nl         */
+/*   Updated: 2026/02/04 23:21:40 by jstomps       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_stack	*second_to_last(t_stack *lst)
 {
 	if (!lst)
 		return (NULL);
-	while (lst->next->next != NULL)
+	while (lst->next && lst->next->next != NULL)
 	{
 		lst = lst->next;
 	}

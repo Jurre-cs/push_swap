@@ -6,16 +6,16 @@
 /*   By: jstomps <jstomps@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/12/10 17:10:31 by jstomps       #+#    #+#                 */
-/*   Updated: 2026/01/31 02:10:21 by jstomps       ########   odam.nl         */
+/*   Updated: 2026/02/02 19:54:47 by jstomps       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack	**push_swap(t_stack **astack)
+void	push_swap(t_stack **astack)
 {
 	if (sorted(astack))
-		return (astack);
+		return ;
 	if (nodecount(astack) == 3)
 		sort3(astack);
 	else if (nodecount(astack) == 2)
@@ -23,8 +23,10 @@ t_stack	**push_swap(t_stack **astack)
 	else if (nodecount(astack) > 3)
 		turkalg(astack);
 	else
-		return (free_stack(astack), write(1, "pizza\n", 6), NULL);
-	return (astack);
+	{
+		write(1, "Error\n", 6);
+		free_stack(astack);
+	}
 }
 
 int	check(char **argv)
