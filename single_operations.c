@@ -6,7 +6,7 @@
 /*   By: jstomps <jstomps@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2026/01/14 15:59:33 by jstomps       #+#    #+#                 */
-/*   Updated: 2026/02/04 20:13:50 by jstomps       ########   odam.nl         */
+/*   Updated: 2026/02/09 16:34:42 by jstomps       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	bp(t_stack **ahead, t_stack **bhead)
 void	rr(t_stack **head, char *op)
 {
 	t_stack	*secondtolast;
-	t_stack *last;
-	
+	t_stack	*last;
+
 	secondtolast = second_to_last(*head);
 	last = ft_lstlast(*head);
 	last->next = *head;
@@ -62,8 +62,8 @@ void	r(t_stack **head, char *op)
 
 void	s(t_stack **head, char *op)
 {
-	t_stack *firstnode;
-	t_stack *secondnode;
+	t_stack	*firstnode;
+	t_stack	*secondnode;
 
 	firstnode = *head;
 	secondnode = (*head)->next;

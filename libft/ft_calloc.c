@@ -6,7 +6,7 @@
 /*   By: jstomps <jstomps@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/10/11 13:35:50 by jstomps       #+#    #+#                 */
-/*   Updated: 2025/11/12 18:11:09 by jstomps       ########   odam.nl         */
+/*   Updated: 2026/02/09 21:16:06 by jstomps       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	void	*mem;
 
 	if (nmemb > SIZE_MAX / size)
-		return(NULL);
+		return (NULL);
 	product = nmemb * size;
 	mem = malloc(product);
 	if (!mem)

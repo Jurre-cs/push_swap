@@ -6,7 +6,7 @@
 /*   By: jstomps <jstomps@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/12/10 17:10:31 by jstomps       #+#    #+#                 */
-/*   Updated: 2026/02/02 19:54:47 by jstomps       ########   odam.nl         */
+/*   Updated: 2026/02/09 22:27:57 by jstomps       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	push_swap(t_stack **astack)
 
 int	check(char **argv)
 {
-	int i;
-	int j;
-	
-	i = 1;
+	int	i;
+	int	j;
+
+	i = 0;
 	j = 0;
 	while (argv[i])
 	{
@@ -42,7 +42,7 @@ int	check(char **argv)
 		while (argv[i][j])
 		{
 			if (argv[i][j] != ' ' && (argv[i][j] < '0' || argv[i][j] > '9')
-			&& argv[i][j] != '-' && argv[i][j + 1] != '-')
+				&& argv[i][j] != '-' && argv[i][j + 1] != '-')
 				return (-1);
 			if (argv[i][j + 1] == '-' && argv[i][j] == '-')
 				return (-1);
@@ -53,18 +53,18 @@ int	check(char **argv)
 	return (i);
 }
 
-int	convert(char **argv,t_stack **astack)
+int	convert(char **argv, t_stack **astack)
 {
-	t_stack *anode;
-	int 	count;
+	t_stack	*anode;
+	int		count;
 
-	count = 1;
+	count = 0;
 	while (argv[count])
 	{
-		anode = (struct s_stack*)malloc(sizeof(t_stack));
+		anode = (struct s_stack *)malloc(sizeof(t_stack));
 		if (!anode)
 			return (-1);
-		anode->num = ft_atoi(argv[count]);
+		anode->num = ft_atoi(count[argv]);
 		anode->next = NULL;
 		anode->index = 0;
 		anode->cost = 0;
@@ -79,28 +79,11 @@ int	convert(char **argv,t_stack **astack)
 	return (count - 1);
 }
 
-void	free_stack(t_stack **stack)
-{
-	t_stack *current;
-	t_stack *next;
-
-	if (!stack || !*stack)
-		return;
-	current = *stack;
-	while (current)
-	{
-		next = current->next;
-		free(current);
-		current = next;
-	}
-	*stack = NULL;
-}
-
 void	make_index(t_stack **stack)
 {
 	int		i;
-	t_stack *head;
-	
+	t_stack	*head;
+
 	i = 0;
 	head = *stack;
 	while (head)

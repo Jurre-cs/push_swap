@@ -6,7 +6,7 @@
 /*   By: jstomps <jstomps@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2026/01/15 13:42:23 by jstomps       #+#    #+#                 */
-/*   Updated: 2026/01/31 00:28:02 by jstomps       ########   odam.nl         */
+/*   Updated: 2026/02/09 16:34:57 by jstomps       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	dr(t_stack **ahead, t_stack **bhead)
 	*ahead = (*ahead)->next;
 	abottom->next = atop;
 	atop->next = NULL;
-	
 	btop = *bhead;
 	bbottom = ft_lstlast(*bhead);
 	*bhead = (*bhead)->next;
@@ -36,16 +35,15 @@ void	dr(t_stack **ahead, t_stack **bhead)
 void	drr(t_stack **ahead, t_stack **bhead)
 {
 	t_stack	*asecondtolast;
-	t_stack *alast;
+	t_stack	*alast;
 	t_stack	*bsecondtolast;
-	t_stack *blast;
-	
+	t_stack	*blast;
+
 	asecondtolast = second_to_last(*ahead);
 	alast = ft_lstlast(*ahead);
 	alast->next = *ahead;
 	*ahead = alast;
 	asecondtolast->next = NULL;
-
 	bsecondtolast = second_to_last(*bhead);
 	blast = ft_lstlast(*bhead);
 	blast->next = *bhead;

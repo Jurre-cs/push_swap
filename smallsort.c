@@ -6,7 +6,7 @@
 /*   By: jstomps <jstomps@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2026/01/14 16:02:55 by jstomps       #+#    #+#                 */
-/*   Updated: 2026/01/31 01:47:12 by jstomps       ########   odam.nl         */
+/*   Updated: 2026/02/09 16:34:46 by jstomps       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	sorted(t_stack **head)
 {
-	int tmp;
-	t_stack *current;
+	int		tmp;
+	t_stack	*current;
 
 	tmp = INT_MIN;
 	current = *head;
@@ -38,16 +38,16 @@ void	smallsort(t_stack **head)
 		return ;
 	else if ((*head)->num > (*head)->next->num)
 		s(head, "sa\n");
-	else 
+	else
 		sort3(head);
 }
 
 void	sort3(t_stack **head)
 {
-	int a;
-	int b;
-	int c;
-	
+	int	a;
+	int	b;
+	int	c;
+
 	if (sorted(head))
 		return ;
 	a = (*head)->num;

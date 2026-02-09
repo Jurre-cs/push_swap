@@ -1,6 +1,17 @@
 NAME = push_swap
 
-SRC = main.c helper.c double_operations.c push_swap.c single_operations.c smallsort.c turkalg_fixed.c
+SRC = main.c \
+	helper.c \
+	double_operations.c \
+	push_swap.c \
+	single_operations.c \
+	smallsort.c \
+	turkalg.c \
+	rotate.c \
+	min_max_find.c \
+	cheap_and_cost_find.c \
+	turkalg_back.c
+
 OBJ = $(SRC:%.c=%.o)
 
 CC = cc
@@ -21,9 +32,11 @@ $(LIBFT_LIB):
 	$(MAKE) -C $(LIBFT_DIR)
 
 clean:
+	$(MAKE) -C $(LIBFT_DIR) fclean
 	rm -f $(OBJ)
 
 fclean: clean
+	$(MAKE) -C $(LIBFT_DIR) fclean
 	rm -f $(NAME)
 
 re: fclean all
